@@ -1,0 +1,10 @@
+{% include 'base.html.twig' %}
+
+{% for human in humans %}
+    {% if human.sex = 'men' %}
+        {{ human.sex }}
+    {% else %}
+        {{ human.sex }}
+    {% endif %}
+    {{ human.sex }}
+{% endfor %}

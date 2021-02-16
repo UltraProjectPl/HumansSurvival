@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Human;
+use App\SexEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,13 @@ class HumanRepository extends ServiceEntityRepository
         parent::__construct($registry, Human::class);
     }
 
-    // /**
-    //  * @return Human[] Returns an array of Human objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllFathers(): array
     {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findBy(['sex' => SexEnum::MAN]);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Human
+    public function findAllMothers(): array
     {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findBy(['sex' => SexEnum::WOMAN]);
     }
-    */
 }
