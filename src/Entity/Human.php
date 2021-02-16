@@ -27,13 +27,20 @@ class Human
      * @ORM\ManyToOne(targetEntity="Human")
      * @ORM\JoinColumn(name="father_id", referencedColumnName="id")
      */
-    private ?Human $father = null;
+    private ?Human $father;
 
     /**
      * @ORM\ManyToOne(targetEntity="Human")
      * @ORM\JoinColumn(name="mather_id", referencedColumnName="id")
      */
-    private ?Human $mather = null;
+    private ?Human $mather;
+
+    public function __construct(string $sex, ?Human $father = null, ?Human $mather = null)
+    {
+        $this->sex = $sex;
+        $this->father = $father;
+        $this->mather = $mather;
+    }
 
     public function getId(): ?int
     {
