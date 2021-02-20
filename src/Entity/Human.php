@@ -5,11 +5,12 @@ namespace App\Entity;
 use App\Repository\HumanRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * @ORM\Entity(repositoryClass=HumanRepository::class)
  */
-class Human
+class Human implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -31,15 +32,15 @@ class Human
 
     /**
      * @ORM\ManyToOne(targetEntity="Human")
-     * @ORM\JoinColumn(name="mather_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="mother_id", referencedColumnName="id")
      */
-    private ?Human $mather;
+    private ?Human $mother;
 
     public function __construct(string $sex, ?Human $father = null, ?Human $mather = null)
     {
         $this->sex = $sex;
         $this->father = $father;
-        $this->mather = $mather;
+        $this->mother = $mather;
     }
 
     public function getId(): ?int
@@ -71,29 +72,39 @@ class Human
     }
 
     /**
-     * @return Human
+     * @return Human|null
      */
-    public function getFather(): Human
+    public function getFather(): ?Human
     {
         return $this->father;
     }
 
     /**
-     * @param Human $mather
+     * @param Human $mother
      * @return self
      */
-    public function setMather(Human $mather): self
+    public function setMother(Human $mother): self
     {
-        $this->mather = $mather;
+        $this->mother = $mother;
 
         return $this;
     }
 
     /**
-     * @return Human
+     * @return Human|null
      */
-    public function getMather(): Human
+    public function getMother(): ?Human
     {
-        return $this->mather;
+        return $this->mother;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            $this->id,
+            $this->sex,
+            $this->father ? $this->father->getId() : '',
+            $this->mother ? $this->mother->getId() : '',
+        ];
     }
 }

@@ -1,1 +1,7 @@
 {% include 'base.html.twig' %}
+
+{% block body %}
+    {% for human in humans %}
+        {{ human.sex }}
+    {% endfor %}
+{% endblock %}

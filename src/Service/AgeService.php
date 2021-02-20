@@ -25,12 +25,9 @@ class AgeService
 
         foreach ($allFathers as $father) {
             foreach ($allMothers as $motherKey => $mother) {
-                $sex = random_int(0, 1 ) === 0 ? SexEnum::WOMAN : SexEnum::MAN;
+                $sex = random_int(0, 1) === 0 ? SexEnum::WOMAN : SexEnum::MAN;
                 $child = new Human($sex, $father, $mother);
-
                 $this->entityManager->persist($child);
-
-                unset($allMothers[$motherKey]);
             }
         }
 
