@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\HumanRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=HumanRepository::class)
  */
-class Human implements \JsonSerializable
+class Human implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -35,6 +35,12 @@ class Human implements \JsonSerializable
      * @ORM\JoinColumn(name="mother_id", referencedColumnName="id")
      */
     private ?Human $mother;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Generation", inversedBy="humans")
+     * @ORM\JoinColumn(name="generation_id", referencedColumnName="id")
+     */
+    private Generation $generation;
 
     public function __construct(string $sex, ?Human $father = null, ?Human $mather = null)
     {
@@ -96,6 +102,18 @@ class Human implements \JsonSerializable
     public function getMother(): ?Human
     {
         return $this->mother;
+    }
+
+    public function getGeneration(): Generation
+    {
+        return $this->generation;
+    }
+
+    public function setGeneration(Generation $generation): self
+    {
+        $this->generation = $generation;
+
+        return $this;
     }
 
     public function jsonSerialize()
