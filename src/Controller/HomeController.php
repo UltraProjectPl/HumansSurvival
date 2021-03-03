@@ -26,7 +26,7 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $humans = $this->humanRepository->findAll();
+        $humans = $this->humanRepository->findAllFathers();
         return $this->render('home/all_human.html.twig', [
             'humans' => $humans,
         ]);
@@ -37,7 +37,6 @@ class HomeController extends AbstractController
      */
     public function showParents(Human $human): Response
     {
-        dump($this->ageService->getAllAncestors($human));
 
         return $this->json('success');
     }

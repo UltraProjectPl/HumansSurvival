@@ -30,8 +30,9 @@ class HumanRepository extends ServiceEntityRepository
         return $this->findBy(['sex' => SexEnum::WOMAN]);
     }
 
-    public function allByGraph(): array
+    public function findAllByGraph(): array
     {
-
+        $q = $this->createQueryBuilder('q')
+            ->find
     }
 }
